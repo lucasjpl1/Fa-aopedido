@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio: Responda Sim</title>
+    <style>
+        /* Estilo Geral */
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #fbc2eb, #a18cd1);
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #6a1b9a;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-sim {
+            background: #4caf50;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .btn-sim:hover {
+            background: #45a049;
+            transform: scale(1.1);
+        }
+        .btn-nao {
+            background: #e57373;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .btn-nao:hover {
+            background: #ef5350;
+            transform: scale(1.1);
+        }
+
+        /* Estilo para o Pop-Up */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            flex-direction: column;
+            z-index: 10;
+        }
+        .celebration h2 {
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            animation: textPop 1s ease forwards;
+        }
+        .popup-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            background: #4caf50;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .popup-btn:hover {
+            background: #45a049;
+        }
+
+        /* Animação de Confetes */
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ffd700;
+            animation: fall 2s linear infinite;
+            border-radius: 50%;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Animação do Texto */
+        @keyframes textPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Você aceita dar o cuzinho pra mim? ❤️</h1>
+        <div class="buttons">
+            <button class="btn-sim" onclick="showCelebration()">Sim</button>
+            <button class="btn-nao" onmouseover="moveButton()">Não</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <h2>🎉 aeee! se prepara essa noite tem hhehe!!!! 🎉</h2>
+        <button class="popup-btn" onclick="closeCelebration()">Fechar</button>
+    </div>
+
+    <script>
+        const naoButton = document.querySelector('.btn-nao');
+        const celebration = document.getElementById('celebration');
+
+        // Move o botão "Não" para um local aleatório na tela
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - naoButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - naoButton.offsetHeight);
+
+            naoButton.style.position = 'absolute';
+            naoButton.style.left = `${x}px`;
+            naoButton.style.top = `${y}px`;
+        }
+
+        // Mostra a mensagem de celebração
+        function showCelebration() {
+            celebration.style.display = 'flex';
+            generateConfetti();
+        }
+
+        // Fecha a celebração
+        function closeCelebration() {
+            celebration.style.display = 'none';
+        }
+
+        // Gera confetes animados
+        function generateConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDuration = `${2 + Math.random() * 3}s`;
+                document.body.appendChild(confetti);
+
+                // Remove os confetes após a animação
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+    </script>
+</body>
+</html>
